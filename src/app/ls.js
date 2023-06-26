@@ -1,5 +1,4 @@
 import { readdir } from 'node:fs/promises';
-import { path } from './path.js';
 import { errors } from '../assets/errors.js';
 
 const arrList = [];
