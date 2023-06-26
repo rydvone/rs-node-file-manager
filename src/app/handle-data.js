@@ -1,6 +1,7 @@
 import { errors } from '../assets/errors.js';
 import { ls } from './ls.js';
 import { os } from './os.js';
+import { up } from './up.js';
 
 export const handleInData = (input) => {
   const inCommand = input.split(' ');
@@ -12,6 +13,9 @@ export const handleInData = (input) => {
       break;
     case 'os':
       os(inCommand.slice(1));
+      break;
+    case 'up':
+      up(inCommand.slice(1));
       break;
     default:
       console.log(errors.input);
