@@ -1,5 +1,4 @@
 import { EOL, cpus, userInfo, arch } from 'node:os';
-
 import { errors } from '../assets/errors.js';
 import { objCommand } from '../assets/commands.js';
 

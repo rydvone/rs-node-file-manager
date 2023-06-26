@@ -1,6 +1,5 @@
-import { readdir, stat } from 'node:fs/promises';
+import { readdir } from 'node:fs/promises';
 import { path } from './path.js';
-import { getFMPath } from './fm-path.js';
 import { errors } from '../assets/errors.js';
 
 const arrList = [];
@@ -15,8 +14,7 @@ export const ls = async (params) => {
     console.error(errors.input);
     return 0;
   }
-  const srcPath = path();
-  // const srcPath = process.cwd();
+  const srcPath = process.cwd();
 
   try {
     const filesFull = await readdir(srcPath, { withFileTypes: true });
