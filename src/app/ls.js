@@ -1,17 +1,36 @@
-import { readdir } from 'node:fs/promises';
-import { path } from './path';
+import { readdir, stat } from 'node:fs/promises';
+import { path } from './path.js';
+import { getFMPath } from './fm-path.js';
+import { errors } from '../assets/errors.js';
 
-export const ls = async () => {
-  const msgError = '-ls- operation failed';
-  const srcPath = path('files');
-  try {
-    const files = await readdir(srcPath);
-    for (const file of files) {
-      console.log(file);
-    }
-  } catch (err) {
-    console.error(msgError);
-  }
+const arrList = [];
+
+const getSortArr = (arrData) => {
+  const arr = arrData.slice();
+  return arr.sort((a, b) => a.category.localeCompare(b.category));
 };
 
-// await ls();
+export const ls = async (params) => {
+  if (params.length > 0) {
+    console.error(errors.input);
+    return 0;
+  }
+  const srcPath = path();
+  // const srcPath = process.cwd();
+
+  try {
+    const filesFull = await readdir(srcPath, { withFileTypes: true });
+    for (const file of filesFull) {
+      if (file.isFile()) {
+        arrList.push({ name: file.name, category: 'file' });
+      } else if (file.isDirectory()) {
+        arrList.push({ name: file.name, category: 'dir' });
+      }
+    }
+    console.log('Table list: ');
+    console.table(getSortArr(arrList));
+    arrList.length = 0;
+  } catch (err) {
+    console.error(errors.operation);
+  }
+};
