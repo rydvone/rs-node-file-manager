@@ -5,7 +5,6 @@ import { up } from './up.js';
 
 export const handleInData = (input) => {
   const inCommand = input.split(' ');
-  const curPath = process.cwd();
 
   switch (inCommand[0]) {
     case 'ls':
@@ -20,6 +19,7 @@ export const handleInData = (input) => {
     default:
       console.log(errors.input);
   }
+  const curPath = process.cwd();
   console.log(`Current path : ${curPath}`);
   console.log('-------------------');
   return 0;
